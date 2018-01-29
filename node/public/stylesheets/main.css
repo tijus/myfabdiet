@@ -1,0 +1,84 @@
+body {
+  background-color: #E1F5A9;
+}
+
+.main {
+  margin-top: 15px;
+}
+
+h1#top_bar {
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  color: #25567B;
+  border-radius: 9px 9px 0 0;
+  border: 1px solid #999;
+  background-color: #FFC373;
+  padding: 10px 20px;
+  margin: 0;
+}
+
+.section {
+  text-align: center;
+  margin: 15px 0 15px 0;
+}
+
+.calc {
+  background-color: #FFF;
+  border: 1px solid;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  -moz-box-shadow: 10px 10px 5px #888;
+  -webkit-box-shadow: 10px 10px 5px #888;
+  box-shadow: 10px 10px 5px #888;
+}
+
+.social {
+  text-align: center;
+  padding-top: 15px
+}
+
+iframe[id^='twitter-widget-'] {
+  vertical-align: bottom;
+}
+
+div.centered {
+    width: 90%;
+    margin: 0px auto;
+}
+
+table#macro_table td {
+    font-weight: bold;
+    text-align: center !important;
+}
+
+.ui-slider {
+  margin-top: 5px;
+}
+
+.resources {
+  font-weight: bold;
+}
+
+@media (max-width: 500px) {
+  .btn-lg {
+    font-size: 14px;
+  }
+}
+
+.col-sm-2-half {
+    position: relative;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+@media (min-width: 768px) {
+    .col-sm-2-half {
+        float: left;
+    }
+    .col-sm-2-half {
+        width: 20%;
+    }
+}

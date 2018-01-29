@@ -1,0 +1,236 @@
+<!doctype html>
+<!--[if lt IE 7]>
+<html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
+<!--[if IE 7]>
+<html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
+<!--[if IE 8]>
+<html class="no-js lt-ie9" lang=""> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang=""> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+    <link type="text/css" href="css/jquery-ui/jquery-ui-1.10.4.custom.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/main.css">
+
+    <script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  </head>
+  <body>
+    <div id="fb-root"></div>
+    <script>(function (d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s);
+      js.id = id;
+      js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+    <!--[if lt IE 8]>
+    <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
+      your browser</a> to improve your experience.</p>
+    <![endif]-->
+    <div class="container">
+      <div class="row main">
+        <div class="col-md-9" role="main">
+          <div class="calc">
+            <h1 id="top_bar">The MacroNutrient Calculator</h1>
+            <div class="alert alert-info">
+              <button type="button" class="close" data-dismiss="alert">x</button>
+              <strong>Steps to Using the MacroNutrient Calculator</strong><br/>
+              <ol>
+                <li>Enter your daily calories (or use the 'Help Me Find My Daily Calories Needs' feature)</li>
+                <li>Press the Calculate Button</li>
+                <li>Use the sliders or presets to adjust the percentages</li>
+              </ol>
+            </div>
+            <div style="width: 50%; margin: 0px auto;">
+             <form class="navbar-form navbar-left" role="search" action="javascript:void(0);">
+              <div class="form-group" style="padding-bottom: 5px">
+               <label for="calories">&nbsp;Daily Calories:</label><br/>
+               <input type="number" class="form-control" id="calories">
+               <button id="calculateBtn" class="btn btn-primary">Calculate</button>
+             </div>
+             <div class="form-group">
+              <a class="btn btn-danger btn-sm" href="#myDailyCals" data-toggle="modal"><strong>Help Me Find My Daily Calories Needs</strong></a>
+            </div>
+            <div class="form-group">
+             <input type="checkbox" id="gramsPerMeal">&nbsp;Show Grams per Meal&nbsp;&nbsp;
+             <div id="numberMeals" style="display: none; font-style: italic">Number of meals per day:&nbsp;&nbsp;<input type="number" id="meals_per_day_input" size="2" maxlength="2" value="3" style="width: 30px"/>
+             </div>
+           </div>
+         </form>
+       </div>
+       <hr/>
+       <div class="centered" style="padding-bottom: 7px">
+        <label>Presets (Carb/Protein/Fat):&nbsp;&nbsp;</label>
+        <div id="presets" class="btn-group">
+          <button type="button" class="btn btn-default col-sm-2-half col-xs-12" onclick="moveSliders(60,25,15);">60/25/15<br/>(High Carb)</button>
+          <button type="button" class="btn btn-default active col-sm-2-half col-xs-12" onclick="moveSliders(50,30,20);">50/30/20<br/>(Moderate)</button>
+          <button type="button" class="btn btn-default col-sm-2-half col-xs-12" onclick="moveSliders(40,30,30);">40/30/30<br/>(Zone Diet)</button>
+          <button type="button" class="btn btn-default col-sm-2-half col-xs-12" onclick="moveSliders(25,45,30);">25/45/30<br/>(Low Carb)</button>
+          <button type="button" class="btn btn-default col-sm-2-half col-xs-12" onclick="moveSliders(10,15,75);">10/15/75<br/>(Keto)</button>
+        </div>
+        <br/>
+      </div>
+      <table id="macro_table" class='table'>
+        <tr>
+          <th style="width: 60%" colspan="2"><div class="alert alert-warning" id="displayCalsAmount" style="display: none; margin-bottom: 0; padding: 5px;">Currently displaying values for a <span></span> calories per day diet.</div></th>
+          <th style="text-align: center; width: 20%;"><u>Grams per Day</u></th>
+          <th style="text-align: center; width: 20%; display: none; font-we"><u>Grams per Meal</u></th>
+        </tr>
+        <tr>
+          <th style="width: 20%">Carbohydrate:</th>
+          <th style="width: 40%">Percentage: <span id="carb_percent" class="label label-primary"></span>
+            <div id="carb_slider"></div>
+          </th>
+          <td class="gram-value" id="carb_cals">-</td>
+          <td class="gram-value" id="carb_cals_per_meal" style="display: none">-</td>
+        </tr>
+        <tr>
+          <th>Protein:</th>
+          <th>Percentage: <span id="protein_percent" class="label label-primary" ></span>
+            <div id="protein_slider"></div>
+          </th>
+          <td class="gram-value" id="protein_cals" >-</td>
+          <td class="gram-value" id="protein_cals_per_meal" style="display: none;">-</td>
+        </tr>
+
+        <tr>
+          <th>Fat:</th>
+          <th>Percentage: <span id="fat_percent" class="label label-primary" ></span>
+            <div id="fat_slider"></div>
+          </th>
+          <td class="gram-value" id="fat_cals" >-</td>
+          <td class="gram-value" id="fat_cals_per_meal" style="display: none">-</td>
+        </tr>
+        <tr>
+          <th colspan="4">Total Percentage: <span class="label label-success" id="total_percent">100%</span></th>
+        </tr>
+      </table>
+      <div style="text-align: center">&copy; MacroNutrientCalculator.com. All rights Reserved.</div>
+    </div> <!-- /row -->
+    <div class="section">
+      <div class="fb-like" data-href="http://macronutrientcalculator.com/" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
+      <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://macronutrientcalculator.com/">Tweet</a>
+      <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
+      $(document).ready(function () {
+        $('#twitter-widget-0')
+      })
+      </script>
+    </div>
+  </div>
+</div>
+      <div class="row resources">
+        <div class="col-md-9">
+          <h2>Resources</h2>
+          <ul>
+            <li><a target="_blank" href="http://www.zonediet.com/the-zone-diet/">Zone Diet Official Site</a></li>
+            <li><a target="_blank" href="https://en.wikipedia.org/wiki/Ketogenic_diet">Ketogenic Diet Wikipedia Page</a></li>
+            <li><a target="_blank" href="https://www.e-junkie.com/ecom/gb.php?cl=286507&amp;c=ib&amp;aff=291372">Free MacroNutrient Diet Ebook (Affiliate Link)</a></li>
+          </ul>
+        </div>
+      </div>
+</div> <!-- /container -->
+<div class="modal fade active" id="myDailyCals" tabindex="-1" role="dialog" aria-labelledby="myDailyCals" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+        <div style="float: right; display: inline; padding-right: 20px" id="units" class="btn-group" data-toggle="buttons">
+          <label class="btn btn-default active">
+            <input type="radio" name="units" value="standard" checked="checked"/>US
+          </label>
+          <label class="btn btn-default">
+            <input type="radio" name="units" value="metric"/>Metric
+          </label>
+        </div>
+        <h3 id="myModalLabel">Daily Calorie Needs Calculator</h3>
+      </div>
+      <div class="modal-body">
+        <div id="modalMessage" class="alert alert-info">
+          <button type="button" class="close" data-dismiss="alert">x</button>
+          <p>This calculator uses the <a href="http://en.wikipedia.org/wiki/Harris-Benedict_equation" target="_blank">Revised Harris-Benedict Equation</a> to calculate your calorie needs.  For more information on BMR calculation, please see <a href="http://en.wikipedia.org/wiki/Basal_metabolic_rate" target="_blank">Basal metabolic rate</a>.<br/><strong>Note:</strong>&nbsp;The lowest possible calculated value is 1200 calories.</p>
+        </div>
+        <form role="form">
+          <label for="age">Age:</label>
+          <div class="input-group input-group-sm col-lg-3">
+            <input type="number" class="form-control" name="age" id="age" />
+            <span class="input-group-addon">Years Old</span>
+          </div>
+          <label>Sex:</label>
+          <div class="input-group col-lg-3">
+            <div class="btn-group btn-group-sm" data-toggle="buttons">
+              <label class="btn btn-default active">
+                <input type="radio" name="sex" value="male" checked="checked"> Male
+              </label>
+              <label class="btn btn-default">
+                <input type="radio" name="sex" value="female"> Female
+              </label>
+            </div>
+          </div>
+          <label>Weight:</label>
+          <div class="input-group input-group-sm col-lg-3">
+            <input type="number" class="form-control" name="weight" id="weight"/>
+            <span id="weigth_units" class="input-group-addon">Pounds</span>
+          </div>
+          <label>Height:</label>
+          <div class="input-group input-group-sm col-lg-4">
+            <input type="number" class="form-control" name="feet_cm" id="feet_cm">
+            <span id="height_units" class="input-group-addon">Feet</span>
+            <input type="number" class="form-control inches" name="inches" id="inches">
+            <span class="input-group-addon inches">Inches</span>
+          </div>
+          <label>Activity Level:</label>
+          <select name="activity_level" id="activity_level" class="form-control">
+            <option value="no">Little to no exercise</option>
+            <option value="light">Light exercise (1&minus;3 days per week)</option>
+            <option value="moderate">Moderate exercise (3&minus;5 days per week)</option>
+            <option value="heavy">Heavy exercise (6&minus;7 days per week)</option>
+            <option value="extreme">Very heavy exercise (twice per day, extra heavy workouts)</option>
+          </select>
+          <label for="gain_loss_amount">I want to:</label>
+          <select id="gain_loss_amount" name="gain_loss_amount" class="form-control"></select>
+        </form>
+        <div id="dc_results" class="alert alert-success" style="display: none">
+          <h4>In order to meet your weight goal, you would have to consume&nbsp;**<strong><span id="calAmount"></span>&nbsp;Calories per Day</strong>**&nbsp;<button class="btn btn-danger btn-xs" onclick="copyVal('calAmount');">Use this Value</button></h4>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-info" data-dismiss="modal" aria-hidden="true">Close</button>
+          <button class="btn btn-primary" onclick="calcDailyCals();">Calculate</button>
+        </div>
+      </div> <!-- modal body -->
+    </div> <!-- modal content -->
+  </div>
+</div>
+    <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
+
+    <script src="js/vendor/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/vendor/jquery-ui-1.10.4.custom.min.js"></script>
+    <script type="text/javascript" src="js/vendor/jquery.ui.touch-punch.min.js"></script>
+    <script src="js/dist/main.js"></script>
+    <script>
+      (function (b, o, i, l, e, r) {
+        b.GoogleAnalyticsObject = l;
+        b[l] || (b[l] =
+          function () {
+            (b[l].q = b[l].q || []).push(arguments)
+          });
+        b[l].l = +new Date;
+        e = o.createElement(i);
+        r = o.getElementsByTagName(i)[0];
+        e.src = '//www.google-analytics.com/analytics.js';
+        r.parentNode.insertBefore(e, r)
+      }(window, document, 'script', 'ga'));
+      ga('create', 'UA-39814300-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </body>
+</html>

@@ -1,0 +1,73 @@
+<div class="modal" ui-if="modal1" ui-shared-state="modal1">
+  <div class="modal-backdrop in"></div>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <strong id="myModalLabel">Daily Calorie Needs Calculator</strong>
+      <div class="modal-body">
+       
+        <form role="form"><label for="age">Age:</label>
+          <div class="input-group input-group-sm col-lg-3">
+            <input class="form-control" id="age" type="number" name="age">
+            <span class="input-group-addon">Years Old</span>
+            </div>
+            <label>Sex:</label>
+            <div class="input-group col-lg-3">
+          <div class="btn-group btn-group-sm" data-toggle="buttons">
+          <label class="btn btn-default active">
+            <input type="radio" name="sex" value="male" checked="checked"> Male</label>
+            <label class="btn btn-default"><input type="radio" name="sex" value="female"> Female</label>
+            </div>
+            </div>
+            <label>Weight:</label>
+            <div class="input-group input-group-sm col-lg-3">
+              <input class="form-control" id="weight" type="number" name="weight">
+              <span class="input-group-addon" id="weigth_units">Pounds</span>
+              </div>
+              <label>Height:</label>
+              <div class="input-group input-group-sm col-lg-4">
+          <input class="form-control" id="feet_cm" type="number" name="feet_cm">
+          <span class="input-group-addon" id="height_units">Feet</span>
+          <input class="form-control inches" id="inches" type="number" name="inches">
+          <span class="input-group-addon inches">Inches</span>
+          </div>
+          <label>Activity Level:</label>
+          <select class="form-control" id="activity_level" name="activity_level">
+            <option value="no">Little to no exercise</option>
+            <option value="light">Light exercise (1−3 days per week)</option>
+            <option value="moderate">Moderate exercise (3−5 days per week)</option>
+            <option value="heavy">Heavy exercise (6−7 days per week)</option>
+            <option value="extreme">Very heavy exercise (twice per day, extra heavy workouts)</option>
+          </select>
+            <label for="gain_loss_amount">I want to:</label>
+            <!-- <select class="form-control" id="gain_loss_amount" name="gain_loss_amount"></select> -->
+            <select class="form-control" id="gain_loss_amount" name="gain_loss_amount">0
+              <option value="-1e3">Lose 2 Pounds per Week</option>
+              <option value="-750">Lose 1.5 Pounds per Week</option>
+              <option value="-500">Lose 1 Pounds per Week</option>
+              <option value="-250">Lose 0.5 Pounds per Week</option>
+              <option value="0">Stay the Same Weight</option>
+              <option value="250">Gain 0.5 Pound per Week</option>
+              <option value="500">Gain 1 Pound per Week</option>
+              <option value="750">Gain 1.5 Pounds per Week</option>
+              <option value="1e3">Gain 2 Pounds per Week</option>
+            </select>
+        </form>
+        <div class="alert alert-success" id="dc_results" style="display: none;">
+          <h4>You would have to consume **<strong>
+            <span id="calAmount"></span>
+             Calories per Day</strong>** 
+             <button class="btn btn-danger btn-xs" onclick="copyVal('calAmount');">
+               Use this Value
+             </button>
+           </h4>
+          </div>
+      </div><!-- modal body-->
+      <div class="modal-footer">
+        <button class="btn btn-primary" onclick="calcDailyCals();">Calculate</button>
+        <button ui-turn-off="modal1" class="btn btn-primary">Save changes</button>
+        <button ui-turn-off="modal1" class="btn btn-default">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

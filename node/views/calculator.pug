@@ -1,0 +1,252 @@
+doctype html
+//if lt IE 7
+  html.no-js.lt-ie9.lt-ie8.lt-ie7(lang="")  
+//if IE 7
+  html.no-js.lt-ie9.lt-ie8(lang="")  
+//if IE 8
+  html.no-js.lt-ie9(lang="")  
+// [if gt IE 8] <!
+html.no-js(lang="")
+  // <![endif]
+  head
+    meta(charset="utf-8")
+    meta(http-equiv="X-UA-Compatible" content="IE=edge,chrome=1")
+    title
+    meta(name="description" content="")
+    meta(name="viewport" content="width=device-width, initial-scale=1")
+    link(rel="apple-touch-icon" href="apple-touch-icon.png")
+    link(rel="stylesheet" href="../public/stylesheets/bootstrap.min.css")
+    link(rel="stylesheet" href="../public/stylesheets/bootstrap-theme.min.css")
+    
+    link(rel="stylesheet" href="../public/stylesheets/main.css")
+    link(rel="stylesheet" href="../public/stylesheets/jqUI.css")
+    script(src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js")
+  body
+    #fb-root
+    script.
+      (function (d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s);
+      js.id = id;
+      js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+      fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+    //if lt IE 8
+      p.browserupgrade
+        | You are using an 
+        strong outdated
+        |  browser. Please 
+        a(href="http://browsehappy.com/")
+          | upgrade
+          | your browser
+        |  to improve your experience.
+    .container
+      .row.main
+        .col-md-9(role="main")
+          .calc
+            h1#top_bar The MacroNutrient Calculator
+            .alert.alert-info
+              button.close(type="button" data-dismiss="alert") x
+              strong Steps to Using the MacroNutrient Calculator
+              br
+              ol
+                li
+                  | Enter your daily calories (or use the 'Help Me Find My Daily Calories Needs' feature)
+                li Press the Calculate Button
+                li Use the sliders or presets to adjust the percentages
+            div(style="width: 50%; margin: 0px auto;")
+              form.navbar-form.navbar-left(role="search" action="javascript:void(0);")
+                .form-group(style="padding-bottom: 5px")
+                  label(for="calories")  Daily Calories:
+                  br
+                  input#calories.form-control(type="number")
+                  button#calculateBtn.btn.btn-primary Calculate
+                .form-group
+                  a.btn.btn-danger.btn-sm(href="#myDailyCals" data-toggle="modal")
+                    strong Help Me Find My Daily Calories Needs
+                .form-group
+                  input#gramsPerMeal(type="checkbox")
+                  |  Show Grams per Meal  
+                  #numberMeals(style="display: none; font-style: italic")
+                    | Number of meals per day:  
+                    input#meals_per_day_input(type="number" size="2" maxlength="2" value="3" style="width: 30px")
+            hr
+            .centered(style="padding-bottom: 7px")
+              label Presets (Carb/Protein/Fat):  
+              #presets.btn-group
+                button.btn.btn-default.col-sm-2-half.col-xs-12(type="button" onclick="moveSliders(60,25,15);")
+                  | 60/25/15
+                  br
+                  | (High Carb)
+                button.btn.btn-default.active.col-sm-2-half.col-xs-12(type="button" onclick="moveSliders(50,30,20);")
+                  | 50/30/20
+                  br
+                  | (Moderate)
+                button.btn.btn-default.col-sm-2-half.col-xs-12(type="button" onclick="moveSliders(40,30,30);")
+                  | 40/30/30
+                  br
+                  | (Zone Diet)
+                button.btn.btn-default.col-sm-2-half.col-xs-12(type="button" onclick="moveSliders(25,45,30);")
+                  | 25/45/30
+                  br
+                  | (Low Carb)
+                button.btn.btn-default.col-sm-2-half.col-xs-12(type="button" onclick="moveSliders(10,15,75);")
+                  | 10/15/75
+                  br
+                  | (Keto)
+              br
+            table#macro_table.table
+              tr
+                th(style="width: 60%" colspan="2")
+                  #displayCalsAmount.alert.alert-warning(style="display: none; margin-bottom: 0; padding: 5px;")
+                    | Currently displaying values for a 
+                    span
+                    |  calories per day diet.
+                th(style="text-align: center; width: 20%;")
+                  u Grams per Day
+                th(style="text-align: center; width: 20%; display: none; font-we")
+                  u Grams per Meal
+              tr
+                th(style="width: 20%") Carbohydrate:
+                th(style="width: 40%")
+                  | Percentage: 
+                  span#carb_percent.label.label-primary
+                  #carb_slider
+                td#carb_cals.gram-value -
+                td#carb_cals_per_meal.gram-value(style="display: none") -
+              tr
+                th Protein:
+                th
+                  | Percentage: 
+                  span#protein_percent.label.label-primary
+                  #protein_slider
+                td#protein_cals.gram-value -
+                td#protein_cals_per_meal.gram-value(style="display: none;") -
+              tr
+                th Fat:
+                th
+                  | Percentage: 
+                  span#fat_percent.label.label-primary
+                  #fat_slider
+                td#fat_cals.gram-value -
+                td#fat_cals_per_meal.gram-value(style="display: none") -
+              tr
+                th(colspan="4")
+                  | Total Percentage: 
+                  span#total_percent.label.label-success 100%
+            div(style="text-align: center") © MacroNutrientCalculator.com. All rights Reserved.
+          // /row
+          .section
+            .fb-like(data-href="http://macronutrientcalculator.com/" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true")
+            a.twitter-share-button(href="https://twitter.com/share" data-url="http://macronutrientcalculator.com/") Tweet
+            script.
+              !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
+              $(document).ready(function () {
+              $('#twitter-widget-0')
+              })
+      .row.resources
+        .col-md-9
+          h2 Resources
+          ul
+            li
+              a(target="_blank" href="http://www.zonediet.com/the-zone-diet/") Zone Diet Official Site
+            li
+              a(target="_blank" href="https://en.wikipedia.org/wiki/Ketogenic_diet") Ketogenic Diet Wikipedia Page
+            li
+              a(target="_blank" href="https://www.e-junkie.com/ecom/gb.php?cl=286507&c=ib&aff=291372") Free MacroNutrient Diet Ebook (Affiliate Link)
+    // /container
+    #myDailyCals.modal.fade.active(tabindex="-1" role="dialog" aria-labelledby="myDailyCals" aria-hidden="true")
+      .modal-dialog
+        .modal-content
+          .modal-header
+            button.close(type="button" data-dismiss="modal" aria-hidden="true") X
+            #units.btn-group(style="float: right; display: inline; padding-right: 20px" data-toggle="buttons")
+              label.btn.btn-default.active
+                input(type="radio" name="units" value="standard" checked="checked")
+                | US
+              label.btn.btn-default
+                input(type="radio" name="units" value="metric")
+                | Metric
+            h3#myModalLabel Daily Calorie Needs Calculator
+          .modal-body
+            #modalMessage.alert.alert-info
+              button.close(type="button" data-dismiss="alert") x
+              p
+                | This calculator uses the 
+                a(href="http://en.wikipedia.org/wiki/Harris-Benedict_equation" target="_blank") Revised Harris-Benedict Equation
+                |  to calculate your calorie needs.  For more information on BMR calculation, please see 
+                a(href="http://en.wikipedia.org/wiki/Basal_metabolic_rate" target="_blank") Basal metabolic rate
+                | .
+                br
+                strong Note:
+                |  The lowest possible calculated value is 1200 calories.
+            form(role="form")
+              label(for="age") Age:
+              .input-group.input-group-sm.col-lg-3
+                input#age.form-control(type="number" name="age")
+                span.input-group-addon Years Old
+              label Sex:
+              .input-group.col-lg-3
+                .btn-group.btn-group-sm(data-toggle="buttons")
+                  label.btn.btn-default.active
+                    input(type="radio" name="sex" value="male" checked="checked")
+                    |  Male
+                  label.btn.btn-default
+                    input(type="radio" name="sex" value="female")
+                    |  Female
+              label Weight:
+              .input-group.input-group-sm.col-lg-3
+                input#weight.form-control(type="number" name="weight")
+                span#weigth_units.input-group-addon Pounds
+              label Height:
+              .input-group.input-group-sm.col-lg-4
+                input#feet_cm.form-control(type="number" name="feet_cm")
+                span#height_units.input-group-addon Feet
+                input#inches.form-control.inches(type="number" name="inches")
+                span.input-group-addon.inches Inches
+              label Activity Level:
+              select#activity_level.form-control(name="activity_level")
+                option(value="no") Little to no exercise
+                option(value="light") Light exercise (1−3 days per week)
+                option(value="moderate") Moderate exercise (3−5 days per week)
+                option(value="heavy") Heavy exercise (6−7 days per week)
+                option(value="extreme") Very heavy exercise (twice per day, extra heavy workouts)
+              label(for="gain_loss_amount") I want to:
+              select#gain_loss_amount.form-control(name="gain_loss_amount")
+            #dc_results.alert.alert-success(style="display: none")
+              h4
+                | In order to meet your weight goal, you would have to consume **
+                strong
+                  span#calAmount
+                  |  Calories per Day
+                | ** 
+                button.btn.btn-danger.btn-xs(onclick="copyVal('calAmount');") Use this Value
+            .modal-footer
+              button.btn.btn-info(data-dismiss="modal" aria-hidden="true") Close
+              button.btn.btn-primary(onclick="calcDailyCals();") Calculate
+          // modal body
+        // modal content
+    
+    script(src="../public/javascripts/jquery-3.3.1.min.js")
+    script(src="../public/javascripts/calculator.js")
+    script(src="../public/javascripts/jqCustom.js")
+    
+    script(src="../public/javascripts/bootstrap.min.js")
+    script(src="../public/javascripts/mordern.js")
+    script(src="../public/javascripts/jqUiTouch.js")
+    script.
+      (function (b, o, i, l, e, r) {
+      b.GoogleAnalyticsObject = l;
+      b[l] || (b[l] =
+      function () {
+      (b[l].q = b[l].q || []).push(arguments)
+      });
+      b[l].l = +new Date;
+      e = o.createElement(i);
+      r = o.getElementsByTagName(i)[0];
+      e.src = '//www.google-analytics.com/analytics.js';
+      r.parentNode.insertBefore(e, r)
+      }(window, document, 'script', 'ga'));
+      ga('create', 'UA-39814300-1', 'auto');
+      ga('send', 'pageview');

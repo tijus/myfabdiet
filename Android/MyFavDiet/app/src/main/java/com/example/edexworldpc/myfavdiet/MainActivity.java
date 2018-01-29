@@ -1,0 +1,93 @@
+package com.example.edexworldpc.myfavdiet;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.widget.ProgressBar;
+import android.widget.Toast;
+
+public class MainActivity extends AppCompatActivity {
+
+    WebView webView;
+    ProgressBar progressBar;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
+        webView=(WebView)findViewById(R.id.webView);
+        progressBar = (ProgressBar)findViewById(R.id.progressBar1);
+        final WebSettings webSettings=webView.getSettings();
+        webSettings.setJavaScriptEnabled(true);
+        // webSettings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
+        String url = "http://129.21.94.106:3000/calculator";
+        webView.loadUrl(url);
+        // webView.loadUrl("https://docs.google.com/gview?embedded=true&url="+url);
+        webView.setWebViewClient(new MyAppWebViewClient() {
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                progressBar.setVisibility(View.GONE);
+
+                findViewById(R.id.webView).setVisibility(View.VISIBLE);
+            }
+
+            public void onReceivedError(final WebView view, int errorCode, String description,
+                                        final String failingUrl) {
+                Toast.makeText(MainActivity.this, "Please connect to internet", Toast.LENGTH_LONG).show();
+                webView.loadUrl("about:blank");
+                startActivity(new Intent(MainActivity.this, NoInternet.class));
+                //super.onReceivedError(view, errorCode, description, failingUrl);
+            }
+
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                if (url.endsWith(".pdf")) {
+                    // webSettings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
+                    webView.loadUrl(url);
+                    return true;
+                }
+                return false;
+            }
+        });
+        }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+}

@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.example.edexworldpc.myfavdiet.Register"
+    tools:showIn="@layout/activity_register">
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:scrollbarAlwaysDrawVerticalTrack="true"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginBottom="20sp"
+            android:layout_marginTop="15sp"
+            android:padding="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:textAlignment="center"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                android:text="Register to continue.."/>
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="40sp" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/edittext_name"
+                android:inputType="textPersonName"
+                android:hint="Full Name"
+                android:layout_centerHorizontal="true"
+                android:background="@layout/rounded_border_edittext"
+                android:padding="10dp"
+                android:textSize="20sp"
+                />
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="20sp" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/edittext_email"
+                android:hint="Email address"
+                android:inputType="textEmailAddress"
+                android:layout_centerHorizontal="true"
+                android:background="@layout/rounded_border_edittext"
+                android:padding="10dp"
+                android:textSize="20sp"
+                />
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="20sp" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Password"
+                android:id="@+id/edittext_password"
+                android:inputType="textPassword"
+                android:layout_centerHorizontal="true"
+                android:background="@layout/rounded_border_edittext"
+                android:padding="10dp"
+                android:textSize="20sp"
+                />
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="20sp" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="Phone Number"
+                android:id="@+id/edittext_phone"
+                android:inputType="number"
+                android:layout_centerHorizontal="true"
+                android:background="@layout/rounded_border_edittext"
+                android:padding="10dp"
+                android:textSize="20sp"
+                />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="20sp" />
+
+            <EditText
+                android:id="@+id/dateOfBirth"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:background="@layout/rounded_border_edittext"
+                android:hint="Date of Birth"
+                android:padding="10dp"
+                android:textSize="20sp"
+                />
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="30sp" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/btn_register"
+                android:textSize="20sp"
+                android:background="@layout/rounded_border_button"
+                android:text="Register"
+                android:padding="10sp"
+                android:textColor="#ffffff"
+                android:layout_gravity="center"/>
+
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>
